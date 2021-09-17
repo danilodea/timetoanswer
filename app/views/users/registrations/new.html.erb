@@ -1,0 +1,28 @@
+<div>
+  <a class="hiddenanchor" id="signin"></a>
+
+  <div class="login_wrapper">
+    <div class="animate form login_form">
+      <section class="login_content">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <h1>Cadastrar-se</h1>
+          <div>
+            <%= f.email_field :email, class: "form-control", placeholder: "E-mail" %>
+          </div>
+          <div>
+            <%= f.password_field :password, class: "form-control", placeholder: "Senha" %>
+          </div>
+          <div>
+            <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmação da Senha" %>
+          </div>          
+          <div>
+            <%= f.submit "Cadastrar-se", class: "btn btn-primary submit w-50", style: "float: none; margin-left: 0px;" %>
+          </div>
+          <div class="clearfix"></div>
+          <%= render "users/shared/error_messages", resource: resource %>
+          <div class="separator"></div>
+        <% end %>
+      </section>
+    </div>
+  </div>
+</div>

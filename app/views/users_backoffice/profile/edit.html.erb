@@ -1,0 +1,122 @@
+<div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Dados do Perfil</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <% if @user.errors.any? %>
+                <% @user.errors.full_messages.each do |message| %>
+                    <div class="alert alert-danger alert-dismissible " role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <strong><%= message %></strong>
+                    </div>
+                <% end %>
+            <% end %>        
+            <%= form_with(url: users_backoffice_profile_path, model: @user, local: true, class: "form-horizontal form-label-left") do |form| %>
+            
+                <div class="item form-group">
+                    <%= form.label :first_name, for:"first_name", class: "col-form-label col-md-3 col-sm-3 label-align" %>
+                    <div class="col-md-6 col-sm-6 ">
+                        <%= form.text_field :first_name, class: "form-control", id:"first_name" %>     
+                    </div>
+                </div>
+
+                <div class="item form-group">
+                    <%= form.label :last_name, for:"last_name", class: "col-form-label col-md-3 col-sm-3 label-align" %>
+                    <div class="col-md-6 col-sm-6 ">
+                        <%= form.text_field :last_name, class: "form-control", id:"last_name" %>     
+                    </div>
+                </div>
+
+                <div class="item form-group">
+                    <%= form.label :email, for:"email", class: "col-form-label col-md-3 col-sm-3 label-align" %>
+                    <div class="col-md-6 col-sm-6 ">
+                        <%= form.text_field :email, class: "form-control", id:"email", readonly: true %>     
+                    </div>
+                </div>
+
+                <%= form.fields_for :user_profile do |profile_form| %>
+
+                    <div class="item form-group">
+                        <%= profile_form.label :address, for:"email", class: "col-form-label col-md-3 col-sm-3 label-align" %>
+                        <div class="col-md-6 col-sm-6 ">
+                            <%= profile_form.text_field :address, class: "form-control", id:"email" %>     
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <%= profile_form.label :gender, for:"gender", class: "col-form-label col-md-3 col-sm-3 label-align" %>
+                        <div class="col-md-6 col-sm-6 ">
+                            <div id="gender" class="btn-group" data-toggle="buttons">
+                                <label class="btn <%= gender_select(@user,'M') %>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                    <%= profile_form.radio_button :gender, "M", class: "join-btn", "data-parsley-multiple": "gender" %> &nbsp; Masculino &nbsp;
+                                </label>
+                                <label class="btn <%= gender_select(@user,'F') %>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                    <%= profile_form.radio_button :gender, "F", class: "join-btn", "data-parsley-multiple": "gender" %> &nbsp; Feminino &nbsp;
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%= javascript_tag do %>
+                        /*$("div#gender label").click((e) => {
+                            $("div#gender label").removeClass('btn-primary').addClass('btn-secondary');
+                            $(e.target).removeClass('btn-secondary').addClass('btn-primary');
+                        });*/
+                        
+                        var labels = document.querySelectorAll("div#gender label");
+                        labels.forEach((label) => {
+                            label.addEventListener("click",() => {
+                                label.classList.remove('btn-secondary');
+                                label.classList.add('btn-primary');
+
+                                labels.forEach((lbl) => {
+                                    if (lbl !== label) {
+                                        lbl.classList.remove('btn-primary');
+                                        lbl.classList.add('btn-secondary');
+                                    }
+                                });
+                            });
+                        })
+                    <% end %>
+
+                    <div class="item form-group">
+                        <%= profile_form.label :birthdate, for:"birthdate", class: "col-form-label col-md-3 col-sm-3 label-align" %>
+                        <div class="col-md-6 col-sm-6 ">
+                            <%= profile_form.text_field :birthdate, 
+                                value: (l(@user.user_profile.birthdate) unless @user.user_profile.birthdate.blank?), 
+                                class: "form-control date-picker" %>
+                        </div>
+                    </div>
+                <% end %>
+
+                <div class="item form-group">
+                    <%= form.label :password, for:"password", class: "col-form-label col-md-3 col-sm-3 label-align" %>
+                    <div class="col-md-6 col-sm-6 ">
+                        <%= form.password_field :password, class: "form-control", id:"password" %>     
+                    </div>
+                </div>
+
+                <div class="item form-group">
+                    <%= form.label :password_confirmation, for:"password_confirmation", class: "col-form-label col-md-3 col-sm-3 label-align" %>
+                    <div class="col-md-6 col-sm-6 ">
+                        <%= form.password_field :password_confirmation, class: "form-control", id:"password_confirmation" %>     
+                    </div>
+                </div>
+
+                <div class="ln_solid"></div>
+                <div class="item form-group">
+                    <div class="col-md-6 col-sm-6 offset-md-3">
+                        <button type="submit" class="btn btn-success">Enviar</button>
+                    </div>
+                </div>
+
+            <% end %>
+        </div>
+    </div>
+</div>

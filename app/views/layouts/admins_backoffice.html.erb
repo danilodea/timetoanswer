@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>TimeToAnswer</title>
+
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+
+        <%= stylesheet_link_tag 'application' %>
+        <%= stylesheet_link_tag 'admins_backoffice' %>
+        <%= javascript_include_tag 'admins_backoffice_head' %>
+
+        <!-- <link href="css/styles.css" rel="stylesheet" /> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script> -->
+    </head>
+
+    <body>
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-4" href="index.html"><p class="h6">Backoffice Administrativo</p></a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li>
+                            <%= link_to 'Logout', destroy_admin_session_path, method: :delete, class: 'dropdown-item'  %>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <%= link_to admins_backoffice_welcome_index_path, class: "nav-link" do %>
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            <% end %>
+                        </div>
+                        <div class="nav">
+                            <%= link_to admins_backoffice_admins_path, class: "nav-link" do %>
+                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                Administradores
+                            <% end %>
+                        </div>
+                        <div class="nav">
+                            <%= link_to admins_backoffice_subjects_path, class: "nav-link" do %>
+                                <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                                Assuntos/Áreas
+                            <% end %>
+                        </div>
+                        <div class="nav">
+                            <%= link_to admins_backoffice_questions_path, class: "nav-link" do %>
+                                <div class="sb-nav-link-icon"><i class="fa fa-th-list fa-fw"></i></div>
+                                Perguntas
+                            <% end %>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        <%= current_admin.email %>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <%= yield %>
+                    </div>
+                </main>
+            </div>
+        </div>
+        
+        <%= javascript_include_tag 'application' %>
+        <%= javascript_include_tag 'admins_backoffice_body' %>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> -->
+        <!-- <script src="js/scripts.js"></script> -->
+
+        <% if notice %>
+            <%= js_notify(notice,"success") %>
+        <% end %>
+    </body>
+</html>

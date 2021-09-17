@@ -1,0 +1,42 @@
+<div class="bg-light p-3 rounded">
+    <h4>
+      <%= msg_header_questions %>
+    </h4>
+</div>
+<% @questions.each do |question| %>
+  <%= form_with(url: site_answer_path) do |form| %>
+    <div class="card my-3">
+      <div class="card-header">
+        <h5 class="card-title">
+            <span class="badge bg-info">
+              <%= link_to "#{question.subject.description} (#{question.subject.questions_count})", site_search_subject_path(question.subject_id, question.subject.description), class: "text-white" %>
+            </span>
+            <%= question.description %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <ul class="ps-0">
+            <% question.answers.each do |answer| %>
+                <div class="form-check">
+                  <%= radio_button_tag "answer_id", answer.id, false, class: "form-check-input" %>
+                  <%= label_tag "answer_id_#{answer.id}", answer.description, class: "form-check-label", role: "button" %>
+                </div>                
+            <% end %>
+        </ul>
+        <%= form.submit "Responder", class: "btn btn-outline-dark", id: "submit_#{question.id}" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if user_signed_in? %>
+  <div class='text-center'>
+      <div class='d-inline-block'>
+          <%= paginate @questions %>
+      </div>
+  </div>
+<% else %>
+  <div class="alert alert-warning" role="alert">
+    Efetue o Login para continuar respondendo as questões...
+  </div>
+<% end %>

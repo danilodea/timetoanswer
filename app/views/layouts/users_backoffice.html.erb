@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TimeToAnswer</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application' %>
+    <%= stylesheet_link_tag    'users_backoffice' %>
+
+    <!-- Bootstrap v4.3.1 -->
+    <!-- <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- Font Awesome 4.6.3 -->
+    <!-- <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- NProgress 0.2.0 -->
+    <!-- <link href="../vendors/nprogress/nprogress.css" rel="stylesheet"> -->
+    <!-- jQuery 3.1.3 custom content scroller -->
+    <!-- <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/> -->
+
+    <!-- Custom Theme Style -->
+    <!-- <link href="../build/css/custom.min.css" rel="stylesheet"> -->
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <%= link_to users_backoffice_welcome_index_path, class: "site_title" do %>
+                <i class="fa fa-paw"></i> <span>Time To Answer</span>
+              <% end %>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <%= link_to image_tag(avatar_url, alt: "...", class: "img-circle profile_img", id: "imgAvatarMd"), '#', "data-toggle":"modal", "data-target":"#avatarModal" %>
+              </div>
+              <div class="profile_info">
+                <span>Seja Bem Vindo</span>
+                <h2><%= current_user.full_name %></h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+                  <li>
+                    <%= link_to users_backoffice_welcome_index_path do %>
+                      <i class="fa fa-home"></i>Início
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to users_backoffice_profile_path do %>
+                      <i class="fa fa-user"></i>Dados do Perfil
+                    <% end %>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <%= link_to destroy_user_session_path, method: :delete, data: {toggle: 'tooltip', placement: 'top'}, title: 'Sair' do %>
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              <% end %>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <nav class="nav navbar-nav">
+                <ul class=" navbar-right">
+                  <li class="nav-item dropdown open" style="padding-left: 15px;">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                      <%= image_tag avatar_url, alt: "", id: "imgAvatarSm" %>
+                      <%= current_user.full_name %>
+                    </a>
+                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                      <%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do %>
+                        <i class="fa fa-sign-out pull-right"></i> Sair
+                      <% end %>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="title">
+            <%= yield %>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="avatarModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <%= form_with(url: users_backoffice_profile_path, model: current_user, class: "form-horizontal form-label-left") do |form| %>
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Avatar</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <%= form.fields_for :user_profile do |profile_form| %>
+                <div class="form-group">
+                    <%= profile_form.label :avatar, class: "font-weight-bold" %>
+                    <%= image_tag(avatar_url, class: "img-circle profile_img", id: "imgAvatarLg") %>
+                    <%= profile_form.file_field :avatar, class: "mt-3" %>
+                </div>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <%= form.submit "Salvar", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'users_backoffice' %>
+
+    <!-- jQuery v2.2.3 -->
+    <!-- <script src="../vendors/jquery/dist/jquery.min.js"></script> -->
+    <!-- Bootstrap v4.3.1 -->
+    <!-- <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- FastClick 1.0.6 -->
+    <!-- <script src="../vendors/fastclick/lib/fastclick.js"></script> -->
+    <!-- NProgress 0.2.0 -->
+    <!-- <script src="../vendors/nprogress/nprogress.js"></script> -->
+    <!-- jQuery 3.1.3 custom content scroller -->
+    <!-- <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
+
+    <!-- Custom Theme Scripts -->
+    <!-- <script src="../build/js/custom.min.js"></script> -->
+
+    <% if notice %>
+        <%= js_notify(notice,"success") %>
+    <% end %>
+
+    <%= javascript_tag do %>
+        $(function(){
+          $(".date-picker").datepicker();
+        });
+    <% end %>
+  </body>
+</html>

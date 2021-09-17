@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>TimeToAnswer</title>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application' %>
+    <%= stylesheet_link_tag    'site' %>
+
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbar-static/"> -->
+
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <!-- <link href="navbar-top.css" rel="stylesheet"> -->
+  </head>
+  <body class="bg-secondary">
+      
+    <header class="p-3 bg-dark text-white">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-center pb-2 border-bottom border-secondary">
+          <%= link_to root_path, class: "d-flex align-items-center me-3 mb-0 text-light text-decoration-none" do %>
+            <span class="fs-4">Time to Answer</span>
+          <% end %>
+          <%= form_with(url: site_search_path, local: true, method: :get, class: "col-12 col-lg-auto mb-0 me-auto") do |form| %>
+            <%= form.text_field :term, class: "form-control form-control-dark", placeholder: "Digite algo...", data: {"aria-label": "Search"} %>
+          <% end %>
+          <% unless user_signed_in? %>
+            <ul class="nav nav-pills mb-2">
+              <li class="nav-item"><%= link_to "Entrar", new_user_session_path, class: "nav-link" %></li>
+              <li class="nav-item"><%= link_to "Cadastrar-se", new_user_registration_path, class: "nav-link" %></li>
+            </ul>
+          <% else %>
+            <div class="dropdown">
+              <button class="btn btn-outline-info dropdown-toggle mb-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= current_user.email %>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <%= link_to users_backoffice_welcome_index_path, class: "dropdown-item" do %>
+                    <i class="fa fa-user  fa-fw"></i> Perfil
+                  <% end %>
+                </li>
+                <hr class="dropdown-divider">
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
+                    <i class="fa fa-sign-out fa-fw"></i> Sair
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <main class="container p-4">
+      <%= yield %>
+    </main>
+
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'site_body' %>
+
+    <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
+
+    <% if notice %>
+      <%= js_notify(notice,"success") %>
+    <% end %>
+
+  </body>
+</html>
