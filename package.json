@@ -1,5 +1,5 @@
 {
-  "name": "time_to_answer",
+  "name": "timetoanswer",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.3",
