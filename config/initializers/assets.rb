@@ -19,6 +19,7 @@ Rails.application.config.assets.precompile += %w(
     admin_devise.css admin_devise_head.js admin_devise_body.js
     user_devise.css user_devise_body.js
     site.css site_body.js
+    @fortawesome/fontawesome-free/js/all.js
 )
 
 # /lib/assets
