@@ -9,7 +9,7 @@
 
 role :app, %w{deploy@137.184.50.217}
 role :web, %w{deploy@137.184.50.217}
-role :db, %w{deploy@137.184.50.217}
+role :db,  %w{deploy@137.184.50.217}
 
 # role-based syntax
 # ==================
