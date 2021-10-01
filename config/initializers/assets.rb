@@ -30,4 +30,5 @@ Rails.application.config.assets.precompile += %w(
     admins_backoffice/jquery-3.6.0.js
     site/navbar-top.css
     bootstrap-v4.3.1/dist/css/bootstrap.css
+    fortawesome/fontawesome-free/js/all.js
 )
