@@ -13,7 +13,6 @@ Rails.application.config.assets.paths << Rails.root.join('vendor')
 # folder are already added.
 
 # /app/assets
-# @fortawesome/fontawesome-free/js/all.js
 Rails.application.config.assets.precompile += %w( 
     admins_backoffice_head.js admins_backoffice.css admins_backoffice_body.js 
     users_backoffice.js users_backoffice.css 
