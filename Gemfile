@@ -61,10 +61,10 @@ group :development do
   gem 'pry-rails'
   gem 'awesome_print'
   gem 'rails_db', '2.3'
-  gem "capistrano", "~> 3.11", require: false
+  gem "capistrano", "~> 3.16", require: false
   gem 'capistrano-rvm'
-  gem 'capistrano-bundler', '~> 1.5'
-  gem "capistrano-rails", "~> 1.4", require: false
+  gem 'capistrano-bundler', '~> 2.0'
+  gem "capistrano-rails", "~> 1.6", require: false
 end
 
 group :test do
