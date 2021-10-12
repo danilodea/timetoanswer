@@ -14,6 +14,7 @@ namespace :dev do
       show_spinner("[2 de 8] Criando DB...") { %x(rails db:create) } 
       show_spinner("[3 de 8] Migrando DB...") { %x(rails db:migrate) }
     end
+    
     show_spinner("[4 de 8] Cadastrando o administrador padrão...") { %x(rails dev:add_default_admin) }
     show_spinner("[5 de 8] Cadastrando o administrador extras...") { %x(rails dev:add_extra_admins) }
     show_spinner("[6 de 8] Cadastrando o usuário padrão...") { %x(rails dev:add_default_user) }
