@@ -4,13 +4,14 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
-  # Devise Config
+  # Devise Config 
   config.action_mailer.default_url_options = { host: 'loopdea.site' }
 
+  # Mailgun Config
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     api_key: Rails.application.credentials.MAILGUN_KEY,
-    domain: 'mg.loopdea.site',
+    domain: 'mg.loopdea.site'
     # api_host: 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
   }
 
