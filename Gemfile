@@ -45,6 +45,7 @@ gem 'kaminari'
 gem 'kaminari-i18n'
 gem 'cocoon'
 gem 'font-awesome-rails'
+gem 'prawn-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
